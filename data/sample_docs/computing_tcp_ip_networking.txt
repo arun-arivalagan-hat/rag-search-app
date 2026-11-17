@@ -1,0 +1,11 @@
+How TCP/IP Networking Works
+
+The internet runs on a stack of protocols known as TCP/IP. Each layer handles one job and relies on the layer below it.
+
+At the bottom, the link layer moves frames between devices on the same local network, for example over Ethernet or Wi-Fi. Above it, the Internet Protocol (IP) gives every device an address and routes packets across networks, hop by hop, through routers. IP is best-effort: packets can be lost, duplicated or delivered out of order.
+
+The Transmission Control Protocol (TCP) sits on top of IP and provides a reliable, ordered byte stream. A connection begins with a three-way handshake: the client sends SYN, the server replies SYN-ACK, and the client answers with ACK. TCP numbers every byte, acknowledges received data and retransmits anything that goes unacknowledged. Flow control uses a receive window so a fast sender does not overwhelm a slow receiver, and congestion control reduces the sending rate when it detects packet loss.
+
+The User Datagram Protocol (UDP) is the lightweight alternative. It has no handshake, no retransmission and no ordering guarantees, which makes it a good fit for DNS lookups, live video and online games where speed matters more than perfect delivery.
+
+Application protocols such as HTTP, SMTP and SSH run on top of TCP. When you load a web page, DNS first translates the hostname into an IP address, then your browser opens a TCP connection to port 443 and negotiates TLS encryption before sending the request.

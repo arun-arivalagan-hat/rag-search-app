@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rag-lab"
+version = "0.1.0"
+description = "RAG Search Lab: a learning-oriented, from-scratch tour of production RAG components."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26",
+    "python-dotenv>=1.0",
+    "pypdf>=4.0",
+    "sentence-transformers>=3.0",
+    "chromadb>=0.5",
+    "faiss-cpu>=1.8",
+    "rank-bm25>=0.2.2",
+    "anthropic>=0.40",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "reportlab>=4.0",   # only used to generate the sample PDF
+]
+api = [
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = [
+    "integration: needs network and/or an API key (deselect with -m 'not integration')",
+]

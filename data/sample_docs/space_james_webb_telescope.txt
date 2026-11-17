@@ -1,0 +1,9 @@
+The James Webb Space Telescope
+
+The James Webb Space Telescope (JWST) launched on 25 December 2021 aboard an Ariane 5 rocket from French Guiana. It is the largest and most powerful space telescope ever built and is a joint project of NASA, the European Space Agency and the Canadian Space Agency.
+
+Unlike the Hubble Space Telescope, which observes mostly visible and ultraviolet light, JWST is optimized for infrared. Infrared light passes through cosmic dust and allows astronomers to see very distant galaxies, whose light has been stretched, or redshifted, by the expansion of the universe. This lets Webb look back more than 13 billion years toward the era when the first stars and galaxies formed.
+
+The primary mirror is 6.5 metres across and is made of 18 hexagonal segments of gold-coated beryllium. Because the instruments detect faint heat signals, the telescope must stay extremely cold. A five-layer sunshield, about the size of a tennis court, blocks light and heat from the Sun, Earth and Moon and keeps the instruments below roughly minus 230 degrees Celsius.
+
+JWST does not orbit the Earth. It sits near the second Sun-Earth Lagrange point (L2), about 1.5 million kilometres away, where it can keep the Sun, Earth and Moon behind the sunshield. Among its early results are detailed spectra of exoplanet atmospheres, including the detection of carbon dioxide in the atmosphere of a gas giant orbiting another star.

@@ -1,0 +1,15 @@
+{
+  "_note": "Metadata sidecar. doc_id is the file stem. 'year' and 'level' are synthetic values added so metadata filtering (Module 12) has numeric and categorical fields to filter on.",
+  "documents": [
+    {"file": "space_mars_exploration.md",          "topic": "space",     "title": "Exploring Mars",                "year": 2021, "level": "beginner"},
+    {"file": "space_james_webb_telescope.txt",     "topic": "space",     "title": "The James Webb Space Telescope", "year": 2022, "level": "intermediate"},
+    {"file": "space_apollo_program.md",            "topic": "space",     "title": "The Apollo Program",            "year": 2019, "level": "beginner"},
+    {"file": "space_black_holes.pdf",              "topic": "space",     "title": "Black Holes",                   "year": 2023, "level": "intermediate"},
+    {"file": "health_sleep_science.md",            "topic": "health",    "title": "The Science of Sleep",          "year": 2022, "level": "beginner"},
+    {"file": "health_cardiovascular_exercise.txt", "topic": "health",    "title": "Exercise and Heart Health",     "year": 2020, "level": "beginner"},
+    {"file": "health_vitamins_nutrition.md",       "topic": "health",    "title": "Vitamins and Nutrition Basics", "year": 2021, "level": "beginner"},
+    {"file": "computing_tcp_ip_networking.txt",    "topic": "computing", "title": "How TCP/IP Networking Works",   "year": 2020, "level": "intermediate"},
+    {"file": "computing_database_indexing.md",     "topic": "computing", "title": "Database Indexing",             "year": 2023, "level": "intermediate"},
+    {"file": "computing_machine_learning_basics.md","topic": "computing","title": "Machine Learning Basics",       "year": 2023, "level": "beginner"}
+  ]
+}

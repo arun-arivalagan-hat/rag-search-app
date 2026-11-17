@@ -1,0 +1,33 @@
+{
+  "_note": "Hand-labelled relevance judgements at DOCUMENT level (doc_id = file stem). Chunk-level labels are derived later from character offsets once chunking exists. 'kind' tags what each query is designed to stress: 'keyword' = exact terms appear in the doc (favours BM25), 'semantic' = paraphrase with little word overlap (favours embeddings), 'multi' = more than one relevant document.",
+  "queries": [
+    {"id": "q01", "kind": "keyword",  "query": "Neil Armstrong Sea of Tranquility",
+     "relevant": ["space_apollo_program"]},
+    {"id": "q02", "kind": "keyword",  "query": "three-way handshake SYN ACK",
+     "relevant": ["computing_tcp_ip_networking"]},
+    {"id": "q03", "kind": "keyword",  "query": "Perseverance Jezero Crater river delta",
+     "relevant": ["space_mars_exploration"]},
+    {"id": "q04", "kind": "keyword",  "query": "suprachiasmatic nucleus melatonin",
+     "relevant": ["health_sleep_science"]},
+    {"id": "q05", "kind": "keyword",  "query": "overfitting regularisation",
+     "relevant": ["computing_machine_learning_basics"]},
+    {"id": "q06", "kind": "semantic", "query": "How can a database find a row without reading the entire table?",
+     "relevant": ["computing_database_indexing"]},
+    {"id": "q07", "kind": "semantic", "query": "Which observatory looks at heat radiation to see the earliest galaxies?",
+     "relevant": ["space_james_webb_telescope"]},
+    {"id": "q08", "kind": "semantic", "query": "How much physical activity should adults get each week?",
+     "relevant": ["health_cardiovascular_exercise"]},
+    {"id": "q09", "kind": "semantic", "query": "What happens to a star that is too heavy to stay stable and collapses?",
+     "relevant": ["space_black_holes"]},
+    {"id": "q10", "kind": "semantic", "query": "Which nutrient does the skin make when exposed to the sun?",
+     "relevant": ["health_vitamins_nutrition"]},
+    {"id": "q11", "kind": "semantic", "query": "Why is reliable delivery harder than just sending packets?",
+     "relevant": ["computing_tcp_ip_networking"]},
+    {"id": "q12", "kind": "multi",    "query": "carbon dioxide",
+     "relevant": ["space_mars_exploration", "space_james_webb_telescope"]},
+    {"id": "q13", "kind": "multi",    "query": "images of far-away objects captured by telescopes",
+     "relevant": ["space_black_holes", "space_james_webb_telescope"]},
+    {"id": "q14", "kind": "multi",    "query": "how embeddings and vectors measure similarity",
+     "relevant": ["computing_machine_learning_basics"]}
+  ]
+}
