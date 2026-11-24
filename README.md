@@ -19,6 +19,11 @@ pytest
 | Module | Status |
 |---|---|
 | 0  Scaffold, config, types, sample corpus, qrels | done |
-| 1+ | pending approval |
+| 1  Ingestion (TXT / Markdown / PDF loaders, manifest metadata, PDF page ranges) | done, approved |
+| 2  Cleaning (offset map, Unicode, whitespace, PDF reflow, hyphenation, Markdown markup, pipeline) | done, awaiting review |
+| 3  Chunking (fixed, sentence, recursive, overlap) | done, awaiting review |
+| 4+ | pending approval |
+
+Demos: `python scripts/demo_ingestion.py`, `python scripts/demo_cleaning.py`, `python scripts/demo_chunking.py`
 
 See `data/sample_docs/` (10 documents, 3 topics) and `data/eval/qrels.json` (14 labelled queries).
