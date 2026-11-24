@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rag Project</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Rag Search Lab</h1>
+            <p class="subtitle">Search 10 documents. See every score.</p>
+        </header>
+        <div class="search">
+            <label class="search-label" for="question">Question</label>
+            <div class="search-row">
+                <input class="search-input" type="text" id="question"
+                    placeholder="Ask a question about your documents..." />
+                <button type="button" class="search-button">Search</button>
+            </div>
+            <p class="search-options">
+                <span class="option-label">Method </span>
+                <button class="method-button" type="button" aria-pressed="true">Vector</button>
+                <button class="method-button" type="button" aria-pressed="false">BM25</button>
+                <button class="method-button" type="button" aria-pressed="false">Hybrid</button>
+
+                <label class="option-label" for="results-count">Results (K)</label>
+                <select class="search-select" id="results-count">
+                    <option class="select-option">5</option>
+                    <option class="select-option">10</option>
+                </select>
+            </p>
+        </div>
+         <div class="error-message" role="alert" hidden>
+            <strong class="error-message__title">Something went wrong</strong>
+            <p class="error-message__text">Could not reach the server. Check that the backend is running and try again.</p>
+        </div>
+        <main class="results-container">
+            <section class="card results">
+                <h2 class="card-title">Results</h2>
+                <div class="empty-state">
+                    <svg class="empty-state__icon" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.3-4.3" />
+                    </svg>
+                    <p class="empty-state__title">Results will appear here</p>
+                    <p class="empty-state__hint">Run a search to see ranked passages with their scores.</p>
+                </div>
+                <div class="skeleton" role="status" hidden>
+                    <span class="visually-hidden">Searching…</span>
+                    <span class="skeleton__line skeleton__line--long" aria-hidden="true"></span>
+                    <span class="skeleton__line skeleton__line--short" aria-hidden="true"></span>
+                    <span class="skeleton__line skeleton__line--medium" aria-hidden="true"></span>
+                </div>
+            </section>
+            <section class="card answer">
+                <h2 class="card-title">Answer</h2>
+                <div class="empty-state">
+                    <svg class="empty-state__icon" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.3-4.3" />
+                    </svg>
+                    <p class="empty-state__title">The answer with citations will appear here</p>
+                    <p class="empty-state__hint">Citations will link back to the source passages.</p>
+                </div>
+            </section>
+        </main>
+        <footer class="footer">
+            Module progress • built step by step
+        </footer>
+        <template id="result-template">
+            <article class="result-card">
+                <div class="result-card__header">
+                    <span class="rank-badge">#1</span>
+                    <h3 class="result-card__title">Document title</h3>
+                    <span class="result-card__score">0.000</span>
+                </div>
+                <p class="result-card__snippet">Passage text goes here.</p>
+                <div class="score-bar" aria-hidden="true">
+                    <div class="score-bar__fill" style="width: 0%"></div>
+                </div>
+                <div class="result-card__meta">
+                    <span class="result-card__source">source-file.md</span>
+                    <span class="result-card__page">Page 1</span>
+                    <button class="link-button" type="button">Show original quote</button>
+                </div>
+            </article>
+        </template>
+
+        <template id="answer-template">
+            <p class="answer__text">Generated answer text goes here.</p>
+            <div class="answer__sources">
+                <span class="option-label">Sources</span>
+                <button class="citation-chip" type="button">[1]</button>
+            </div>
+        </template>
+
+        <template id="no-results-template">
+            <div class="empty-state">
+                <svg class="empty-state__icon" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.3-4.3" />
+                </svg>
+                <p class="empty-state__title">No matching passages. Try different words.</p>
+            </div>
+        </template>
+
+    </div>
+</body>
+
+</html>
