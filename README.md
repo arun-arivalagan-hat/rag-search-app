@@ -22,8 +22,9 @@ pytest
 | 1  Ingestion (TXT / Markdown / PDF loaders, manifest metadata, PDF page ranges) | done, approved |
 | 2  Cleaning (offset map, Unicode, whitespace, PDF reflow, hyphenation, Markdown markup, pipeline) | done, awaiting review |
 | 3  Chunking (fixed, sentence, recursive, overlap) | done, awaiting review |
-| 4+ | pending approval |
+| 4  Embeddings (vector maths by hand, cosine similarity, all-MiniLM-L6-v2 embedder, nearest-chunk search) | done, awaiting review |
+| 5+ | pending approval |
 
-Demos: `python scripts/demo_ingestion.py`, `python scripts/demo_cleaning.py`, `python scripts/demo_chunking.py`
+Demos: `python scripts/demo_ingestion.py`, `python scripts/demo_cleaning.py`, `python scripts/demo_chunking.py`, `python scripts/demo_embeddings.py`
 
 See `data/sample_docs/` (10 documents, 3 topics) and `data/eval/qrels.json` (14 labelled queries).
