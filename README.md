@@ -20,10 +20,10 @@ pytest
 |---|---|
 | 0  Scaffold, config, types, sample corpus, qrels | done |
 | 1  Ingestion (TXT / Markdown / PDF loaders, manifest metadata, PDF page ranges) | done, approved |
-| 2  Cleaning (offset map, Unicode, whitespace, PDF reflow, hyphenation, Markdown markup, pipeline) | done, awaiting review |
-| 3  Chunking (fixed, sentence, recursive, overlap) | done, awaiting review |
-| 4  Embeddings (vector maths by hand, cosine similarity, all-MiniLM-L6-v2 embedder, nearest-chunk search) | done, awaiting review |
-| 5  Keyword search (tokenizer, TF / IDF, BM25 by hand, top-k search) | done, awaiting review |
+| 2  Cleaning (offset map, Unicode, whitespace, PDF reflow, hyphenation, Markdown markup, pipeline) | done, approved |
+| 3  Chunking (fixed, sentence, recursive, overlap) | done, approved |
+| 4  Embeddings (vector maths by hand, cosine similarity, all-MiniLM-L6-v2 embedder, nearest-chunk search) | done, approved |
+| 5  Keyword search (tokenizer, TF / IDF, BM25 by hand, top-k search) | done, approved |
 | 6+ | pending approval |
 
 Demos: `python scripts/demo_ingestion.py`, `python scripts/demo_cleaning.py`, `python scripts/demo_chunking.py`, `python scripts/demo_embeddings.py`
