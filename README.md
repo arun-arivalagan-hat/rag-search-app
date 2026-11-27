@@ -9,7 +9,7 @@ then compared with the standard libraries.
 ```bash
 python3.12 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
-cp .env.example .env            # add ANTHROPIC_API_KEY when you reach Module 14
+cp .env.example .env            # add OPENROUTER_API_KEY to get written answers
 python scripts/generate_sample_pdf.py   # only if the PDF is missing
 pytest
 ```
@@ -25,6 +25,34 @@ pytest
 | 4  Embeddings (vector maths by hand, cosine similarity, all-MiniLM-L6-v2 embedder, nearest-chunk search) | done, approved |
 | 5  Keyword search (tokenizer, TF / IDF, BM25 by hand, top-k search) | done, approved |
 | 6+ | pending approval |
+
+## Project structure
+
+```
+Rag-Research-lab/
+├── README.md
+├── pyproject.toml          # dependencies and project settings
+├── .env / .env.example     # API keys and settings (.env is not pushed to GitHub)
+├── .gitignore
+├── data/                   # sample_docs/ (the corpus), eval/ (labelled questions), indexes/
+├── frontend/src/           # the search page: index.html, scss/, css/, js/app.js
+├── scripts/                # demos and tuning runs
+├── tests/                  # unit and integration tests
+├── logs/                   # rag_lab.log (server errors and warnings, not pushed)
+└── src/rag_lab/
+    ├── config.py           # settings and shared constants
+    ├── ingestion/          # load PDF / TXT / Markdown and clean the text
+    ├── chunking/           # split text into small chunks
+    ├── embeddings/         # chunks to vectors, cosine similarity, nearest-chunk search
+    ├── retrieval/          # BM25 keyword search, hybrid search, RRF
+    ├── prompts/            # build the prompt: system rules, numbered sources, escaping
+    ├── llm/                # call the model through OpenRouter, parse citations
+    ├── evaluation/         # metrics, runner, tuning
+    ├── api/                # FastAPI backend (service, app, main)
+    └── utils/              # logging setup
+```
+
+There is no `vectordb/` folder yet: vectors are searched in memory, which is fast enough for this corpus.
 
 Demos: `python scripts/demo_ingestion.py`, `python scripts/demo_cleaning.py`, `python scripts/demo_chunking.py`, `python scripts/demo_embeddings.py`
 
