@@ -72,3 +72,13 @@
     outline: 2px solid var(--accent);
     outline-offset: 2px;
 }
+
+.results-list{
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+}
+.result-card--highlight{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent);
+}
