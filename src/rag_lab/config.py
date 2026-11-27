@@ -1,10 +1,10 @@
 """Environment-based configuration.
 
-Every tunable (model names, paths, Claude parameters) comes from an environment
+Every tunable (model names, paths, the OpenRouter key) comes from an environment
 variable with a sensible default. Precedence, highest first:
 
     1. real environment variables
-    2. a ``.env`` file in the working directory (never overrides real env vars)
+    2. a ``.env`` file (never overrides real env vars)
     3. defaults below
 
 Nothing is read at import time: call :func:`get_settings` (or
@@ -23,25 +23,30 @@ from dotenv import load_dotenv
 # src/rag_lab/config.py -> repo root is three parents up.
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 
-DEFAULT_CLAUDE_MODEL = "claude-sonnet-5-5"
 DEFAULT_EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 DEFAULT_RERANK_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+# Answers are written through OpenRouter: one key that reaches many models. Model ids look like
+# "google/gemini-3.5-flash-lite"; the public list is https://openrouter.ai/api/v1/models
+# (a listed model can still be refused for your account, so a real answer is the only proof).
+DEFAULT_OPENROUTER_MODEL = "google/gemini-3.5-flash-lite"
+
+# Chunking defaults, chosen by comparing sizes on the labelled queries (step 7f).
+DEFAULT_CHUNK_SIZE = 300      # characters per chunk (recursive chunking)
+DEFAULT_CHUNK_OVERLAP = 50    # characters repeated from the previous chunk
 
 
 @dataclass(frozen=True)
 class Settings:
     """Immutable bag of settings. Frozen so it can be shared safely."""
 
-    # Claude
-    anthropic_api_key: str | None
-    claude_model: str
-    claude_max_tokens: int
-    claude_temperature: float
     # Local models
     embedding_model: str
     rerank_model: str
     # Paths
     data_dir: Path
+    # Answer generation (OpenRouter)
+    openrouter_api_key: str | None = None
+    openrouter_model: str = DEFAULT_OPENROUTER_MODEL
 
     @property
     def sample_docs_dir(self) -> Path:
@@ -75,31 +80,27 @@ class Settings:
             data_dir = (Path.cwd() / data_dir).resolve()
 
         return cls(
-            anthropic_api_key=env.get("ANTHROPIC_API_KEY", "").strip() or None,
-            claude_model=get("CLAUDE_MODEL", DEFAULT_CLAUDE_MODEL),
-            claude_max_tokens=_parse(int, "CLAUDE_MAX_TOKENS", get("CLAUDE_MAX_TOKENS", "1024")),
-            claude_temperature=_parse(
-                float, "CLAUDE_TEMPERATURE", get("CLAUDE_TEMPERATURE", "0.0")
-            ),
             embedding_model=get("EMBEDDING_MODEL", DEFAULT_EMBEDDING_MODEL),
             rerank_model=get("RERANK_MODEL", DEFAULT_RERANK_MODEL),
             data_dir=data_dir,
+            openrouter_api_key=_openrouter_key(env),
+            openrouter_model=get("OPENROUTER_MODEL", DEFAULT_OPENROUTER_MODEL),
         )
 
-    def require_api_key(self) -> str:
-        """Return the API key or fail with an actionable message."""
-        if not self.anthropic_api_key:
-            raise RuntimeError(
-                "ANTHROPIC_API_KEY is not set. Copy .env.example to .env and fill it in."
-            )
-        return self.anthropic_api_key
+    def require_openrouter_key(self) -> str:
+        """Return the OpenRouter key or fail with an actionable message."""
+        if not self.openrouter_api_key:
+            raise RuntimeError("OPENROUTER_API_KEY is not set. Put it in .env (see .env.example).")
+        return self.openrouter_api_key
 
 
-def _parse(cast, name: str, raw: str):
-    try:
-        return cast(raw)
-    except ValueError as exc:
-        raise ValueError(f"{name} must be a {cast.__name__}, got {raw!r}") from exc
+def _openrouter_key(env: Mapping[str, str]) -> str | None:
+    """OPENROUTER_API_KEY, or the spelling OPEN_ROUTER_API_KEY (both are accepted)."""
+    for name in ("OPENROUTER_API_KEY", "OPEN_ROUTER_API_KEY"):
+        value = env.get(name, "").strip()
+        if value:
+            return value
+    return None
 
 
 def get_settings() -> Settings:

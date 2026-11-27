@@ -3,7 +3,7 @@ import math
 import pytest
 
 from rag_lab.chunking import add_overlap, chunk_recursive
-from rag_lab.config import Settings
+from rag_lab.config import DEFAULT_CHUNK_OVERLAP, DEFAULT_CHUNK_SIZE, Settings
 from rag_lab.ingestion import clean_corpus, load_corpus
 from rag_lab.retrieval.stats import document_frequencies, idf, idf_table, term_frequencies
 from rag_lab.retrieval.tokenize import tokenize
@@ -67,7 +67,7 @@ def test_idf_table_matches_idf():
 # ------------------------------------------------ real corpus
 def real_chunk_tokens():
     docs = [c.retrieval_document for c in clean_corpus(load_corpus(SETTINGS.sample_docs_dir))]
-    chunks = [c for d in docs for c in add_overlap(d, chunk_recursive(d, 500), 50)]
+    chunks = [c for d in docs for c in add_overlap(d, chunk_recursive(d, DEFAULT_CHUNK_SIZE), DEFAULT_CHUNK_OVERLAP)]
     return [tokenize(c.text) for c in chunks]
 
 

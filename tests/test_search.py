@@ -1,7 +1,7 @@
 import pytest
 
 from rag_lab.chunking import add_overlap, chunk_recursive
-from rag_lab.config import Settings
+from rag_lab.config import DEFAULT_CHUNK_OVERLAP, DEFAULT_CHUNK_SIZE, Settings
 from rag_lab.ingestion import clean_corpus, load_corpus
 from rag_lab.retrieval.search import KeywordIndex, top_k
 from rag_lab.types import Chunk
@@ -95,7 +95,7 @@ def test_empty_chunk_list_rejected():
 @pytest.fixture(scope="module")
 def real_index():
     docs = [c.retrieval_document for c in clean_corpus(load_corpus(SETTINGS.sample_docs_dir))]
-    chunks = [c for d in docs for c in add_overlap(d, chunk_recursive(d, 500), 50)]
+    chunks = [c for d in docs for c in add_overlap(d, chunk_recursive(d, DEFAULT_CHUNK_SIZE), DEFAULT_CHUNK_OVERLAP)]
     return KeywordIndex(chunks)
 
 

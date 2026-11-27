@@ -8,14 +8,14 @@ from __future__ import annotations
 import time
 
 from rag_lab.chunking import add_overlap, chunk_recursive
-from rag_lab.config import get_settings
+from rag_lab.config import DEFAULT_CHUNK_OVERLAP, DEFAULT_CHUNK_SIZE, get_settings
 from rag_lab.embeddings.embedder import Embedder
 from rag_lab.embeddings.index import embed_chunks, nearest
 from rag_lab.evaluation.qrels import load_qrels
 from rag_lab.ingestion import clean_corpus, load_corpus
 
-MAX_CHARS = 500
-OVERLAP = 50
+MAX_CHARS = DEFAULT_CHUNK_SIZE
+OVERLAP = DEFAULT_CHUNK_OVERLAP
 TOP_K = 3
 
 
