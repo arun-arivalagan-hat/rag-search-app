@@ -43,6 +43,7 @@ class SourceRef:
 
 @dataclass(frozen=True)
 class Prompt:
+    """The finished prompt: system rules, user message, the source key, and how many chunks were dropped."""
     system: str
     user: str
     sources: tuple[SourceRef, ...]       # the chunks that made it into the prompt, in order

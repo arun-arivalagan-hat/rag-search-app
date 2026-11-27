@@ -74,6 +74,7 @@ def decode_text(raw: bytes, source: str = "<bytes>") -> str:
 # TXT
 # --------------------------------------------------------------------------- #
 def parse_txt(raw: bytes, source: str) -> _Parsed:
+    """Plain text files need no parsing: decode the bytes and add no metadata."""
     return _Parsed(decode_text(raw, source), {})
 
 

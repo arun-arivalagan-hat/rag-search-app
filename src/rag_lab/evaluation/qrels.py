@@ -16,6 +16,7 @@ VALID_KINDS = frozenset({"keyword", "semantic", "multi"})
 
 @dataclass(frozen=True)
 class EvalQuery:
+    """One labelled question and the documents that correctly answer it."""
     query_id: str
     kind: str                    # keyword | semantic | multi
     query: str

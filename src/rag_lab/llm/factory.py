@@ -1,4 +1,4 @@
-"""Step 8e: build the one ``generate(question, chunks)`` function the rest of the app uses.
+"""Step 8d: build the one ``generate(question, chunks)`` function the rest of the app uses.
 
 Callers (the demo, the API) never touch the HTTP details:
 
@@ -33,6 +33,7 @@ def make_generator(settings: Settings, max_tokens: int = 4096) -> tuple[str, Gen
     model = settings.openrouter_model
 
     def generate(question: str, chunks: Sequence[Chunk]) -> Answer:
+        """Answer one question from the given chunks using the configured OpenRouter model."""
         return generate_answer_openrouter(http, question, chunks, model=model, max_tokens=max_tokens)
 
     return f"openrouter:{model}", generate

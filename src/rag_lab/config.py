@@ -50,14 +50,17 @@ class Settings:
 
     @property
     def sample_docs_dir(self) -> Path:
+        """Folder that holds the sample documents."""
         return self.data_dir / "sample_docs"
 
     @property
     def eval_dir(self) -> Path:
+        """Folder that holds the labelled evaluation questions."""
         return self.data_dir / "eval"
 
     @property
     def index_dir(self) -> Path:
+        """Folder reserved for saved indexes."""
         return self.data_dir / "indexes"
 
     @classmethod
@@ -72,6 +75,7 @@ class Settings:
             env = os.environ
 
         def get(name: str, default: str) -> str:
+            """Read one setting; an empty value counts as not set, so the default is used."""
             value = env.get(name, "").strip()
             return value or default  # empty string counts as "unset"
 

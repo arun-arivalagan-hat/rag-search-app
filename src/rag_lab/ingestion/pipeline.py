@@ -45,6 +45,7 @@ class CleanedDocument:
 
     @property
     def doc_id(self) -> str:
+        """The id of the document this cleaned text came from."""
         return self.original.doc_id
 
     @property

@@ -1,9 +1,9 @@
-"""Step 8b: the answer type and the helpers every model call shares.
+"""Step 8c: the answer type and the helpers every model call shares.
 
 A model call (see ``openrouter.py``) ends by turning the reply into an ``Answer``: the text,
 which sources it cited, and flags for the cases a caller must handle (no sources found, the
 model said it does not know, the model refused, the reply was cut off). Keeping that step in one
-place means citation parsing and the flags behave the same whichever model wrote the reply.
+place means citation parsing and the flags behave the same wherever the reply came from.
 """
 
 from __future__ import annotations
@@ -22,6 +22,7 @@ _CITATION = re.compile(r"\[(\d+)\]")
 
 @dataclass(frozen=True)
 class Answer:
+    """A model reply turned into data: text, which sources it cited, and flags the caller must handle."""
     text: str
     cited: tuple[SourceRef, ...]            # the sources the answer cites, in citation-number order
     invalid_citations: tuple[int, ...]      # numbers cited that match no source (a model slip)

@@ -36,6 +36,7 @@ class CachingEmbedder:
         self.model_calls = 0
 
     def embed_text(self, text: str, normalize: bool = True) -> np.ndarray:
+        """Embed one query, reusing the saved vector if this exact query was seen before."""
         key = (text, normalize)
         if key not in self._cache:
             self.model_calls += 1
@@ -43,6 +44,7 @@ class CachingEmbedder:
         return self._cache[key]
 
     def embed_texts(self, texts: Sequence[str], normalize: bool = True) -> np.ndarray:
+        """Embed many texts (the chunks); these are done once, so they are not cached."""
         return self._embedder.embed_texts(texts, normalize=normalize)
 
 

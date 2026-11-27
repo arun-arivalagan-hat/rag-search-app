@@ -1,8 +1,8 @@
-"""Step 8f: the same grounded answer, written through OpenRouter.
+"""Step 8b: send the prompt to the model through OpenRouter and read the reply.
 
 OpenRouter is one web address (and one key) in front of many models. It speaks the common
 "chat completions" format: send a list of messages, get ``choices[0].message.content`` back. The
-prompt (step 8a), citation parsing and the ``Answer`` type are shared with the other providers.
+prompt (step 8a) is built in ``prompts/``; the reply is turned into an ``Answer`` by ``answer.py`` (step 8c).
 
 The HTTP client is passed in (``httpx.Client`` in real use, a fake in tests). Temporary errors
 (429, 500, 502, 503, 504) are retried with growing pauses. Real mistakes (a bad key, no credit,

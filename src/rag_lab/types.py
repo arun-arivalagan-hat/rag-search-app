@@ -70,6 +70,7 @@ class Chunk:
 
     @staticmethod
     def make_id(doc_id: str, index: int) -> str:
+        """Build a chunk id from its document and position, for example ``mars::0``."""
         return f"{doc_id}::{index}"
 
     def __len__(self) -> int:

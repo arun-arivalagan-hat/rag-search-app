@@ -43,6 +43,7 @@ class Embedder:
 
     @property
     def model(self) -> Any:
+        """The embedding model, loaded on first use so importing this module stays fast."""
         if self._model is None:
             self._model = self._loader(self.model_name)
         return self._model

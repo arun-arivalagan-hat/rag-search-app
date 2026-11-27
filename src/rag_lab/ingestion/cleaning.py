@@ -292,6 +292,7 @@ def hyphenation_decisions(text: str, known_words: Collection[str] = ()) -> list[
         left = match.group(1) if match else ""
 
         def decide(action: str, reason: str, right: str = "") -> None:
+            """Record what was decided about this line-end hyphen and why (kept for the cleaning report)."""
             decisions.append(HyphenDecision(position, left, right, action, reason))
 
         if not after or _is_structural(before) or _is_structural(after):

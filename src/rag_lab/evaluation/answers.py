@@ -43,6 +43,7 @@ def load_answers(path: Path) -> dict[str, list[str]]:
 
 @dataclass(frozen=True)
 class AnswerResult:
+    """Answer-level result for one question: did a top-k chunk contain the expected phrase?"""
     query_id: str
     hit: float          # 1.0 if one of the top ``k`` chunks contains the answer
     rr: float           # 1 / position of the first chunk that contains the answer (0 if none)

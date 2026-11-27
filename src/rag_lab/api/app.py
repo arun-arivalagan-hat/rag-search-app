@@ -40,6 +40,7 @@ Generator = Callable[[str, Sequence[Chunk]], Answer]
 
 # ------------------------------------------------ request and response shapes
 class SearchRequest(BaseModel):
+    """What the browser sends: the question, which search method, and how many results (k)."""
     question: str = Field(max_length=MAX_QUESTION_CHARS)
     method: Literal["vector", "bm25", "hybrid"] = "hybrid"
     k: int = Field(default=5, ge=1, le=MAX_K)
@@ -54,6 +55,7 @@ class SearchRequest(BaseModel):
 
 
 class ResultOut(BaseModel):
+    """One search result as the page needs it: rank, score, passage text and where it came from."""
     rank: int
     score: float
     relative_score: float            # 0..1, ready for the score bar
@@ -67,6 +69,7 @@ class ResultOut(BaseModel):
 
 
 class SearchResponse(BaseModel):
+    """Reply of /api/search: the results and how long the search took."""
     question: str
     method: str
     k: int
@@ -75,12 +78,14 @@ class SearchResponse(BaseModel):
 
 
 class CitationOut(BaseModel):
+    """Links an [n] marker in the answer text to the passage it points at."""
     number: int                      # the [n] in the answer text
     chunk_id: str
     doc_id: str
 
 
 class AnswerOut(BaseModel):
+    """The written answer, its flags (unknown, refused, truncated) and token usage."""
     text: str
     citations: list[CitationOut]
     unknown: bool                    # the sources did not contain the answer
@@ -93,6 +98,7 @@ class AnswerOut(BaseModel):
 
 
 class AnswerResponse(SearchResponse):
+    """Reply of /api/answer: the search results plus the written answer."""
     answer: AnswerOut
 
 
@@ -143,12 +149,14 @@ def create_app(
         )
 
     def run_search(body: SearchRequest) -> tuple[list[SearchResult], float]:
+        """Run one search and measure how long it took, in milliseconds."""
         started = time.perf_counter()
         results = state["service"].search(body.question, body.method, body.k)
         return results, (time.perf_counter() - started) * 1000
 
     @app.get("/api/health")
     def health() -> dict:
+        """Is the server up, how many chunks are indexed, and is answering configured?"""
         return {
             "status": "ok",
             "chunks": len(state["service"].chunks),
@@ -158,6 +166,7 @@ def create_app(
 
     @app.post("/api/search", response_model=SearchResponse)
     def search(body: SearchRequest) -> SearchResponse:
+        """Free and fast: return the best passages. No model call is made."""
         results, took = run_search(body)
         return SearchResponse(
             question=body.question, method=body.method, k=body.k, took_ms=round(took, 1),
@@ -166,6 +175,7 @@ def create_app(
 
     @app.post("/api/answer", response_model=AnswerResponse)
     def answer(body: SearchRequest) -> AnswerResponse:
+        """Search, then ask the model to write an answer from the passages. This costs tokens."""
         if state["generator"] is None:
             raise HTTPException(503, "Answers are not configured. Set OPENROUTER_API_KEY in .env.")
         results, took = run_search(body)

@@ -25,6 +25,7 @@ METHODS = ("vector", "bm25", "hybrid")
 
 @dataclass(frozen=True)
 class SearchResult:
+    """One ranked hit. ``relative`` is score / best score (0 to 1), used to draw the score bar."""
     rank: int                # 1 = best
     score: float             # raw score; its scale depends on the method (BM25 ~ 10, cosine ~ 0.5, RRF ~ 0.03)
     relative: float          # score divided by the best score, 0..1, for drawing the score bar

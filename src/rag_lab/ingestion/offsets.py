@@ -124,6 +124,7 @@ class NormalizedText:
         cursor = 0
 
         def keep(upto: int) -> None:
+            """Copy the untouched text up to ``upto`` and remember where each character came from."""
             parts.append(self.text[cursor:upto])
             starts.extend(self.origin[cursor:upto])
             ends.extend(self.origin_end[cursor:upto])
